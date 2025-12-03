@@ -16,10 +16,4 @@ This plan outlines building an ODA-compliant component that exposes both TMF620 
 
 6. **Add Kubernetes deployment files in [kubernetes/deployment.yaml](kubernetes/deployment.yaml), [service.yaml](kubernetes/service.yaml), [ingress.yaml](kubernetes/ingress.yaml)** with MongoDB StatefulSet, create basic integration tests in [tests/v4-translation.test.js](tests/v4-translation.test.js) validating field mapping accuracy, generate Swagger UI documentation for both `/v4/api-docs` and `/v5/api-docs` endpoints, configure simple logging with Winston for monitoring v4 translation calls
 
-### Further Considerations
-
-1. **MongoDB schema validation?** Should we enforce v5.0.0 JSON Schema validation at the database level using MongoDB's schema validation feature, or rely on application-level validation in controllers? Database-level validation ensures data integrity but may complicate debugging.
-
-2. **Event subscription management?** The `/hub` endpoint needs to track which subscribers want v4 vs v5 events—should we store subscription preferences in MongoDB with a `preferredVersion` field, or infer version from the callback URL pattern (e.g., URLs containing `/v4/` get v4 events)?
-
-3. **Deprecation timeline for v4.1.0?** Should we include HTTP `Sunset` and `Deprecation` headers on v4 endpoints to signal future removal, or keep both versions indefinitely? If deprecating, what timeline (12 months, 24 months) and should we add endpoint usage metrics to track v4 adoption decline?
+7. **No Event subscription**. For the initial version of this component, don't attempt to support event subscription - just support the REST HTTP verbs.
