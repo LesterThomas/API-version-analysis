@@ -16,4 +16,13 @@ This plan outlines building an ODA-compliant component that exposes both TMF620 
 
 6. **Add Kubernetes deployment files in [kubernetes/deployment.yaml](kubernetes/deployment.yaml), [service.yaml](kubernetes/service.yaml), [ingress.yaml](kubernetes/ingress.yaml)** with MongoDB StatefulSet, create basic integration tests in [tests/v4-translation.test.js](tests/v4-translation.test.js) validating field mapping accuracy, generate Swagger UI documentation for both `/v4/api-docs` and `/v5/api-docs` endpoints, configure simple logging with Winston for monitoring v4 translation calls
 
-7. **No Event subscription**. For the initial version of this component, don't attempt to support event subscription - just support the REST HTTP verbs.
+
+### Iterative Implementation
+
+This Dual-API component should be implemented in multiple iterations:
+
+1. **GET operations only on v4.0.1 API**. Initial version supporting V5.0.0 API fully, with read-only support of GET operations on the v4.0.1 API. No support for Events.
+
+2. **No Event subscription**. For the initial version of this component, don't attempt to support event subscription - just support the REST HTTP verbs.
+
+3. **Event subscription**. Add v5.0.0 event subscritpion and then v4.0.1 event subscription (requires Hub to understand which version of events a client has subscribed to.)
